@@ -8,7 +8,8 @@ using ContractControl.Infrastructure.Repositories.CompanyRepositories;
 
 namespace ContractControl.Application.Services.CompanyServices;
 
-public class CompanyService : AbstractService<CompanyRepository, CompanyModel, GetComapnyDto, CreateCompanyDto, UpdateCompanyDto>
+public class CompanyService : AbstractService<CompanyRepository, CompanyModel, GetComapnyDto, CreateCompanyDto, UpdateCompanyDto>,
+    ICompanyService
 {
     private readonly IMediatorService _mediatorService;
 
@@ -34,5 +35,17 @@ public class CompanyService : AbstractService<CompanyRepository, CompanyModel, G
 
         return (IEnumerable<GetComapnyDto>)(result);
     }
- 
+
+    public async Task<GetComapnyDto> UpdateAsync(int id, UpdateCompanyDto entity)
+    {
+        var model = await _repository.GetByIdAsync(id);
+
+        model.BIINCompany = entity.BIINCompany;
+        model.CompanyName = entity.ComapnyName;
+        model.AddressCompany = entity.AddressComapany;
+        
+        var result = mapper.Map<GetComapnyDto>(_repository.UpdateAsync(model));
+
+        return result;
+    }
 }
