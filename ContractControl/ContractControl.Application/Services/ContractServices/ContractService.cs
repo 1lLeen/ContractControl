@@ -9,5 +9,5 @@ public class ContractService : AbstractService<ContractRepository, ContractModel
 {
     public ContractService(IMapper mapper, ContractRepository repository) : base(mapper, repository)
     {
-    }
+    } 
 }

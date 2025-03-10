@@ -4,6 +4,6 @@ using NetShop.Application.Servicese.Interfaces;
 
 namespace ContractControl.Application.Services.Interfaces;
 
-public interface IMediatorService : IAbstractService<GetMediatorDto, CreateMediatorDto, UpdateContractDto>
+public interface IMediatorService : IAbstractService<GetMediatorDto, CreateMediatorDto, UpdateMediatorDto>
 {
 }
