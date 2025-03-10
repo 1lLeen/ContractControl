@@ -3,7 +3,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace ContractControl.Dto.Dtos.CompanyDtos;
 
-public class GetComapnyDto : BaseCompanyDto ,IGet
+public class GetCompanyDto : BaseCompanyDto ,IGet
 {
     [SwaggerSchema(ReadOnly = true)]
     public DateTime CreatedTime { get; set; }

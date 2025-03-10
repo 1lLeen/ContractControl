@@ -12,10 +12,10 @@ public class MappingProfile : Profile
 {
     public MappingProfile()
     {
-        CreateMap<CompanyModel, GetComapnyDto>().ReverseMap();
+        CreateMap<CompanyModel, GetCompanyDto>().ReverseMap();
         CreateMap<CompanyModel, CreateCompanyDto>().ReverseMap();
         CreateMap<CompanyModel, UpdateCompanyDto>().ReverseMap();
-        CreateMap<CompanyModel, GetComapnyDto>();
+        CreateMap<CompanyModel, GetCompanyDto>();
         CreateMap<CompanyModel, CreateCompanyDto>();
         CreateMap<CompanyModel, UpdateCompanyDto>();
 

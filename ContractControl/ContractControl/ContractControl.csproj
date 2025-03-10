@@ -19,8 +19,4 @@
     <ProjectReference Include="..\ContractControl.Infrastructure\ContractControl.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>

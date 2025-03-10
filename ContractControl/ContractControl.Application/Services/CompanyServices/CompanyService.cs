@@ -8,7 +8,7 @@ using ContractControl.Infrastructure.Repositories.CompanyRepositories;
 
 namespace ContractControl.Application.Services.CompanyServices;
 
-public class CompanyService : AbstractService<CompanyRepository, CompanyModel, GetComapnyDto, CreateCompanyDto, UpdateCompanyDto>,
+public class CompanyService : AbstractService<CompanyRepository, CompanyModel, GetCompanyDto, CreateCompanyDto, UpdateCompanyDto>,
     ICompanyService
 {
     private readonly IMediatorService _mediatorService;
@@ -18,25 +18,25 @@ public class CompanyService : AbstractService<CompanyRepository, CompanyModel, G
         _mediatorService = mediatorService;
     }     
     
-    public async Task<IEnumerable<GetComapnyDto>>? GetCompaniesByStateContractFalseAsync()
+    public async Task<IEnumerable<GetCompanyDto>>? GetCompaniesByStateContractFalseAsync()
     {
         var companies = await _mediatorService.GetAllAsync();
 
         var result = companies.Where(x => x.State == false).Select(p => p.ToCompanyDto).ToList();
 
-        return (IEnumerable<GetComapnyDto>)result;
+        return (IEnumerable<GetCompanyDto>)result;
     }
 
-    public async Task<IEnumerable<GetComapnyDto>>? GetCompaniesByStateContractTrueAsync()
+    public async Task<IEnumerable<GetCompanyDto>>? GetCompaniesByStateContractTrueAsync()
     {
         var companies = await _mediatorService.GetAllAsync();
 
         var result = companies.Where(x => x.State == true).Select(p =>p.ToCompanyDto).ToList();
 
-        return (IEnumerable<GetComapnyDto>)(result);
+        return (IEnumerable<GetCompanyDto>)(result);
     }
 
-    public async Task<GetComapnyDto> UpdateAsync(int id, UpdateCompanyDto entity)
+    public async Task<GetCompanyDto> UpdateAsync(int id, UpdateCompanyDto entity)
     {
         var model = await _repository.GetByIdAsync(id);
 
@@ -44,7 +44,7 @@ public class CompanyService : AbstractService<CompanyRepository, CompanyModel, G
         model.CompanyName = entity.ComapnyName;
         model.AddressCompany = entity.AddressComapany;
         
-        var result = mapper.Map<GetComapnyDto>(_repository.UpdateAsync(model));
+        var result = mapper.Map<GetCompanyDto>(_repository.UpdateAsync(model));
 
         return result;
     }

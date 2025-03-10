@@ -3,6 +3,8 @@ using NetShop.Application.Servicese.Interfaces;
 
 namespace ContractControl.Application.Services.Interfaces;
 
-public interface ICompanyService : IAbstractService<GetComapnyDto, CreateCompanyDto, UpdateCompanyDto>
-{ 
+public interface ICompanyService : IAbstractService<GetCompanyDto, CreateCompanyDto, UpdateCompanyDto>
+{
+    Task<IEnumerable<GetCompanyDto>>? GetCompaniesByStateContractFalseAsync();
+    Task<IEnumerable<GetCompanyDto>>? GetCompaniesByStateContractTrueAsync();
 }
