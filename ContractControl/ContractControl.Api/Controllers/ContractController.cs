@@ -3,7 +3,7 @@ using ContractControl.Dto.Dtos.CompanyDtos;
 using ContractControl.Dto.Dtos.ContractDtos;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ContractControl.Controllers;
+namespace ContractControl.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
