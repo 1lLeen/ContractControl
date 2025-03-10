@@ -8,6 +8,19 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0" />
+    <PackageReference Include="swashbuckle.aspnetcore" Version="7.3.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="7.3.1" />
+    <PackageReference Include="swashbuckle.aspnetcore.swaggergen" Version="7.3.1" />
+    <PackageReference Include="swashbuckle.aspnetcore.swaggerui" Version="7.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ContractControl.Application\ContractControl.Application.csproj" />
+    <ProjectReference Include="..\ContractControl.Infrastructure\ContractControl.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>
