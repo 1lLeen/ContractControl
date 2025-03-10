@@ -1,6 +1,8 @@
-﻿namespace ContractControl.Infrastructure.Repositories.ContractRepositories;
+﻿using ContractControl.Infrastructure.Models.ContractModels;
 
-public class ContractRepository : AbstractRepository<ContractRepository>
+namespace ContractControl.Infrastructure.Repositories.ContractRepositories;
+
+public class ContractRepository : AbstractRepository<ContractModel>
 {
     public ContractRepository(ContractControlDbContext dbContext) : base(dbContext)
     {

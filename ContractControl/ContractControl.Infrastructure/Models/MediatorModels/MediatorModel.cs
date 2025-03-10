@@ -7,4 +7,5 @@ public class MediatorModel : BaseModel
 { 
     public CompanyModel? Comapny { get; set; }
     public ContractModel? Contract { get; set; }
+    public bool State { get; set; }
 }

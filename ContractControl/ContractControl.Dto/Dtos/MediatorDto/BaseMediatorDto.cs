@@ -11,4 +11,5 @@ public class BaseMediatorDto : IBase
     public int Id { get; set; }
     public BaseCompanyDto? ComapnyDto { get; set; }
     public BaseContractDto? ContractsDto { get; set; }
+    public bool State { get; set; }
 }
