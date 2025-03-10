@@ -69,15 +69,10 @@ namespace ContractControl.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedTime")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int?>("MediatorModelId")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime>("UpdatedTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MediatorModelId");
 
                     b.ToTable("Contracts");
                 });
@@ -90,16 +85,19 @@ namespace ContractControl.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("ContractId")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("CreatedTime")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int?>("FromComapnyId")
+                    b.Property<int?>("FromCompanyId")
                         .HasColumnType("integer");
 
                     b.Property<bool>("State")
                         .HasColumnType("boolean");
 
-                    b.Property<int?>("ToComapnyId")
+                    b.Property<int?>("ToCompanyId")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("UpdatedTime")
@@ -107,38 +105,7 @@ namespace ContractControl.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FromComapnyId");
-
-                    b.HasIndex("ToComapnyId");
-
                     b.ToTable("Mediator");
-                });
-
-            modelBuilder.Entity("ContractControl.Infrastructure.Models.ContractModels.ContractModel", b =>
-                {
-                    b.HasOne("ContractControl.Infrastructure.Models.MediatorModels.MediatorModel", null)
-                        .WithMany("Contract")
-                        .HasForeignKey("MediatorModelId");
-                });
-
-            modelBuilder.Entity("ContractControl.Infrastructure.Models.MediatorModels.MediatorModel", b =>
-                {
-                    b.HasOne("ContractControl.Infrastructure.Models.CompanyModels.CompanyModel", "FromComapny")
-                        .WithMany()
-                        .HasForeignKey("FromComapnyId");
-
-                    b.HasOne("ContractControl.Infrastructure.Models.CompanyModels.CompanyModel", "ToComapny")
-                        .WithMany()
-                        .HasForeignKey("ToComapnyId");
-
-                    b.Navigation("FromComapny");
-
-                    b.Navigation("ToComapny");
-                });
-
-            modelBuilder.Entity("ContractControl.Infrastructure.Models.MediatorModels.MediatorModel", b =>
-                {
-                    b.Navigation("Contract");
                 });
 #pragma warning restore 612, 618
         }

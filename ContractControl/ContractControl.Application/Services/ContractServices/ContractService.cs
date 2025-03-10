@@ -1,15 +1,16 @@
 ﻿using AutoMapper;
 using ContractControl.Application.Services.Interfaces;
 using ContractControl.Dto.Dtos.ContractDtos;
-using ContractControl.Infrastructure.Models.ContractModels;
-using ContractControl.Infrastructure.Repositories.ContractRepositories;
+using ContractControl.Infrastructure.Models.ContractModels; 
+using ContractControl.Infrastructure.Repositories.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace ContractControl.Application.Services.ContractServices;
 
-public class ContractService : AbstractService<ContractRepository, ContractModel, GetContractDto, CreateContractDto, UpdateContractDto>,
+public class ContractService : AbstractService<IContractRepository, ContractModel, GetContractDto, CreateContractDto, UpdateContractDto>,
     IContractService
 {
-    public ContractService(IMapper mapper, ContractRepository repository) : base(mapper, repository)
+    public ContractService(ILogger logger, IMapper mapper, IContractRepository repository) : base(logger, mapper, repository)
     {
     }
 

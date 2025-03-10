@@ -6,12 +6,24 @@ using ContractControl.Infrastructure.Repositories.CompanyRepositories;
 using ContractControl.Infrastructure.Repositories.ContractRepositories;
 using ContractControl.Infrastructure.Repositories.Interfaces;
 using ContractControl.Infrastructure.Repositories.MediatorRepositories;
-using Microsoft.Extensions.DependencyInjection; 
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
-namespace ContractControl.Application;
+namespace ContractControl.Application.MappingConfiguration;
 
 public static class Registration
 {
+    public static void RegistrationLogger(this IServiceCollection services)
+    {
+        var serviceProvider = services.BuildServiceProvider();
+        var loggerCompany = serviceProvider.GetRequiredService<ILogger<CompanyService>>();
+        var loggerContract = serviceProvider.GetRequiredService<ILogger<ContractService>>();
+        var loggerMedaitor = serviceProvider.GetRequiredService<ILogger<MediatorService>>();
+        services.AddSingleton(typeof(ILogger), loggerCompany);
+        services.AddSingleton(typeof(ILogger), loggerContract);
+        services.AddSingleton(typeof(ILogger), loggerMedaitor);
+    }
+
     public static void RegistrationRepositories(this IServiceCollection services)
     {
         services.AddTransient<IContractRepository, ContractRepository>();

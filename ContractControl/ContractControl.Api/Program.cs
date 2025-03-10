@@ -1,5 +1,4 @@
 using ContractControl.Application.MappingConfiguration;
-using ContractControl.Application;
 using Microsoft.EntityFrameworkCore;
 using ContractControl.Infrastructure;
 
@@ -7,15 +6,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration
 .AddJsonFile($"appsettings.json", optional: false)
-.AddJsonFile($"appsettings.Environment.json", optional: true)
+.AddJsonFile($"appsettings.Development.json", optional: true)
 .AddEnvironmentVariables()
 .Build();
 
 builder.Services.AddDbContext<ContractControlDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 #region AddRegistration 
+builder.Services.RegistrationServices();
 builder.Services.RegistrationAutoMapper();
 builder.Services.RegistrationRepositories();
-builder.Services.RegistrationServices();
 #endregion
 
 builder.Services.AddSwaggerGen(c =>
