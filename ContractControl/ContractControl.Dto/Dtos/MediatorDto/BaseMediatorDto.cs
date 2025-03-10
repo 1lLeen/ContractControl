@@ -9,7 +9,8 @@ public class BaseMediatorDto : IBase
 {
     [SwaggerSchema(ReadOnly = true)]
     public int Id { get; set; }
-    public BaseCompanyDto? ComapnyDto { get; set; }
-    public BaseContractDto? ContractsDto { get; set; }
+    public BaseCompanyDto? FromComapnyDto { get; set; }
+    public BaseCompanyDto? ToCompanyDto { get; set; }
+    public IEnumerable<BaseContractDto?>? ContractsDto { get; set; }
     public bool State { get; set; }
 }

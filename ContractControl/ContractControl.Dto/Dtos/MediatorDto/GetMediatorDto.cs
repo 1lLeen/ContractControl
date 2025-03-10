@@ -3,8 +3,10 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace ContractControl.Dto.Dtos.MediatorDto;
 
-public class GetMedatorDto : IGet
+public class GetMediatorDto : BaseMediatorDto ,IGet
 {
     [SwaggerSchema(ReadOnly = true)]
     public DateTime CreatedTime { get; set; }
+    [SwaggerSchema(ReadOnly = true)]
+    public DateTime UpdatedTime { get; set; }
 }
