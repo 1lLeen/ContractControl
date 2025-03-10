@@ -1,22 +1,41 @@
+using ContractControl.Application.MappingConfiguration;
+using ContractControl.Application;
+using Microsoft.EntityFrameworkCore; 
+using ContractControl.Infrastructure;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Configuration
+.AddJsonFile($"appsettings.json", optional: false)
+.AddJsonFile($"appsettings.Environment.json", optional: true)
+.AddEnvironmentVariables()
+.Build();
+
+builder.Services.AddDbContext<ContractControlDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+#region AddRegistration 
+builder.Services.RegistrationAutoMapper();
+builder.Services.RegistrationRepositories();
+builder.Services.RegistrationServices();
+#endregion
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "API WSVAP (WebSmartView)", Version = "v1" });
+    c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First()); //This line 
+});
+
 
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
 
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
 }
 
-app.UseHttpsRedirection();
 
-app.UseAuthorization();
+app.UseHttpsRedirection();
 
 app.MapControllers();
 
