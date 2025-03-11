@@ -22,7 +22,7 @@ public class ContractController : ControllerBase
         return await _service.GetAllAsync();
     }
 
-    [HttpGet]
+    [HttpGet("{id}")]
     public async Task<GetContractDto> GetContractByIdAsync(int id)
     {
         return await _service.GetByIdAsync(id);
@@ -34,13 +34,13 @@ public class ContractController : ControllerBase
         return await _service.CreateAsync(create);
     }
 
-    [HttpPut]
+    [HttpPut("{id}")]
     public async Task<GetContractDto> UpdateContractAsync(int id, UpdateContractDto update)
     {
         return await _service.UpdateAsync(id, update);
     }
 
-    [HttpDelete]
+    [HttpDelete("{id}")]
     public async Task<GetContractDto> DeleteContractAsync(int id)
     {
         return await _service.DeleteAsync(id);

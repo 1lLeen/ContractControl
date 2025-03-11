@@ -22,7 +22,7 @@ public class CompanyController : ControllerBase
         return await _service.GetAllAsync();
     }
 
-    [HttpGet]
+    [HttpGet("{id}")]
     public async Task<GetCompanyDto> GetCompanyByIdAsync(int id)
     {
         return await _service.GetByIdAsync(id);
@@ -34,13 +34,13 @@ public class CompanyController : ControllerBase
         return await _service.CreateAsync(create);
     }
 
-    [HttpPut]
+    [HttpPut("{id}")]
     public async Task<GetCompanyDto> UpdateCompanyAsync(int id, UpdateCompanyDto update)
     {
         return await _service.UpdateAsync(id, update);
     }
 
-    [HttpDelete]
+    [HttpDelete("{id}")]
     public async Task<GetCompanyDto> DeleteCategoryAsync(int id)
     {
         return await _service.DeleteAsync(id);
