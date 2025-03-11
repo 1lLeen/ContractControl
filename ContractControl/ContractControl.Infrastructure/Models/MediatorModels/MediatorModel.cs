@@ -5,8 +5,8 @@ namespace ContractControl.Infrastructure.Models.MediatorModels;
 
 public class MediatorModel : BaseModel
 { 
-    public CompanyModel? FromComapny { get; set; }
-    public CompanyModel? ToComapny { get; set; }
-    public IEnumerable<ContractModel?>? Contract { get; set; }
+    public int? FromCompanyId { get; set; }
+    public int? ToCompanyId { get; set; }
+    public int? ContractId { get; set; }
     public bool State { get; set; }
 }
