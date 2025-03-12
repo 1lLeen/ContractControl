@@ -18,6 +18,7 @@ builder.Services.RegistrationLogger();
 builder.Services.RegistrationAutoMapper();
 builder.Services.RegistrationRepositories();
 builder.Services.RegistrationServices(); 
+builder.Services.RegistrationValidation();
 #endregion
 
 builder.Services.AddSwaggerGen(c =>

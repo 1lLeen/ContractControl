@@ -1,6 +1,9 @@
 ﻿using ContractControl.Application.Services.Interfaces;
 using ContractControl.Dto.Dtos.CompanyDtos; 
 using ContractControl.Dto.Dtos.MediatorDto;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ContractControl.Swagger.Controllers;
@@ -9,17 +12,20 @@ namespace ContractControl.Swagger.Controllers;
 [ApiController]
 public class MedaitorController : ControllerBase
 {
+    private IValidator<BaseMediatorDto> _validator;
     private readonly IMediatorService _service;
 
-    public MedaitorController(IMediatorService service)
+    public MedaitorController(IValidator<BaseMediatorDto> validator, IMediatorService service)
     {
+        _validator = validator;
         _service = service;
     }
 
-    [HttpPost]
+    [HttpPost("{idCompany}/{idContract}")]
     public async Task SubscribeContract(int idCompany, int idContract)
     {
-         await _service.SubscribeContract(idCompany, idContract);
+        if(idCompany > 0 && idContract > 0) 
+            await _service.SubscribeContract(idCompany, idContract);
     }
 
     [HttpGet]
@@ -40,27 +46,47 @@ public class MedaitorController : ControllerBase
         return await _service.GetAllAsync();
     }
 
-    [HttpGet]
+    [HttpGet("{id}")]
     public async Task<GetMediatorDto> GetContractByIdAsync(int id)
     {
-        return await _service.GetByIdAsync(id);
+        if(id > 0)
+            return await _service.GetByIdAsync(id);
+
+        throw new ArgumentException($"Contract by {id} not found");
     }
 
     [HttpPost]
     public async Task<GetMediatorDto> SendContractAsync(CreateMediatorDto create)
     {
+        var result = await _validator.ValidateAsync(create);
+        if (!result.IsValid)
+        {
+            result.AddToModelState(ModelState);
+            throw new ArgumentException("Cannot send contract");
+        }
+
         return await _service.CreateAsync(create);
     }
 
-    [HttpPut]
+    [HttpPut("{id}")]
     public async Task<GetMediatorDto> UpdateContractAsync(int id, UpdateMediatorDto update)
     {
+        var result = await _validator.ValidateAsync(update);
+        if (id > 0 && !result.IsValid)
+        {
+            result.AddToModelState(ModelState);
+            throw new ArgumentException("Cannot update Contract");
+        }
+
         return await _service.UpdateAsync(id, update);
     }
 
-    [HttpDelete]
+    [HttpDelete("{id}")]
     public async Task<GetMediatorDto> DeleteContractAsync(int id)
     {
-        return await _service.DeleteAsync(id);
+        if( id > 0)
+            return await _service.DeleteAsync(id);
+
+        throw new ArgumentException($"Cannot find by id: {id}")
     }
 }

@@ -2,10 +2,12 @@
 using ContractControl.Application.Services.ContractServices;
 using ContractControl.Application.Services.Interfaces;
 using ContractControl.Application.Services.MediatorServices;
+using ContractControl.Infrastructure.ModelConfiguration.Validation;
 using ContractControl.Infrastructure.Repositories.CompanyRepositories;
 using ContractControl.Infrastructure.Repositories.ContractRepositories;
 using ContractControl.Infrastructure.Repositories.Interfaces;
 using ContractControl.Infrastructure.Repositories.MediatorRepositories;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -31,6 +33,14 @@ public static class Registration
         services.AddTransient<IMediatorRespository, MediatorRepository>();
 
     }
+
+    public static void RegistrationValidation(this IServiceCollection services)
+    {
+        services.AddValidatorsFromAssemblyContaining<CompanyValidator>();
+        services.AddValidatorsFromAssemblyContaining<MediatorValidator>();
+        services.AddValidatorsFromAssemblyContaining<ContractValidator>();
+    }
+
     public static void RegistrationServices(this IServiceCollection services)
     {
         services.AddTransient<ICompanyService, CompanyService>();
